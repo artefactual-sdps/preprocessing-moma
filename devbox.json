@@ -1,0 +1,20 @@
+{
+  "packages": [
+    "go_1_22@latest",
+    "git@latest",
+    "fish@latest",
+    "helix@latest",
+    "tilt@latest",
+    "k9s@latest"
+  ],
+  "shell": {
+    "init_hook": [
+      "echo 'Welcome to devbox!' > /dev/null"
+    ],
+    "scripts": {
+      "test": [
+        "echo \"Error: no test specified\" && exit 1"
+      ]
+    }
+  }
+}
