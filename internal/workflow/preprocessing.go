@@ -71,8 +71,8 @@ func (w *PreprocessingWorkflow) Execute(ctx temporalsdk_workflow.Context, params
 
 	// Remove hidden files.
 	e = temporalsdk_workflow.ExecuteActivity(withLocalActOpts(ctx), remove.RemoveSIPFilesName, &remove.RemoveSIPFilesParams{
-		SipPath:     extractPackageRes.Path,
-		SuccumbPath: succumbPath,
+		DestPath:   extractPackageRes.Path,
+		ConfigPath: succumbPath,
 	}).Get(ctx, nil)
 	if e != nil {
 		return nil, e

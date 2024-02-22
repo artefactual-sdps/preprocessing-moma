@@ -3,7 +3,7 @@ module github.com/artefactual-sdps/preprocessing-moma
 go 1.22.0
 
 require (
-	github.com/artefactual-sdps/remove-files-activity v0.0.0-20240221200716-748524b42861
+	github.com/artefactual-sdps/remove-files-activity v0.0.0-20240222195758-862be9127e70
 	github.com/go-logr/logr v1.4.1
 	github.com/mholt/archiver/v3 v3.5.1
 	github.com/richardlehane/siegfried v1.11.0
