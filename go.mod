@@ -3,7 +3,7 @@ module github.com/artefactual-sdps/preprocessing-moma
 go 1.22.0
 
 require (
-	github.com/artefactual-sdps/remove-files-activity v0.0.0-20240222195758-862be9127e70
+	github.com/artefactual-sdps/remove-files-activity v0.0.0-20240301164716-575fb8b7b834
 	github.com/go-logr/logr v1.4.1
 	github.com/mholt/archiver/v3 v3.5.1
 	github.com/richardlehane/siegfried v1.11.0
@@ -18,7 +18,6 @@ require (
 require (
 	github.com/Diogenesoftoronto/go-gitignore v1.1.0 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
-	github.com/artefactual-sdps/Remove-SIP-Activity v0.0.0-20240221160107-7f4aac024cae // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dsnet/compress v0.0.2-0.20210315054119-f66993602bf5 // indirect
 	github.com/facebookgo/clock v0.0.0-20150410010913-600d898af40a // indirect

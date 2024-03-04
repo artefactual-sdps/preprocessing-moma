@@ -70,10 +70,11 @@ func (w *PreprocessingWorkflow) Execute(ctx temporalsdk_workflow.Context, params
 	succumbPath := "./.succumb"
 
 	// Remove hidden files.
-	e = temporalsdk_workflow.ExecuteActivity(withLocalActOpts(ctx), remove.RemoveSIPFilesName, &remove.RemoveSIPFilesParams{
-		DestPath:   extractPackageRes.Path,
-		ConfigPath: succumbPath,
-	}).Get(ctx, nil)
+	var ignoredPaths []string
+	e = temporalsdk_workflow.ExecuteActivity(withLocalActOpts(ctx), remove.RemoveFilesName, &remove.RemoveFilesParams{
+		RemovePath: extractPackageRes.Path,
+		IgnorePath: succumbPath,
+	}).Get(ctx, &ignoredPaths)
 	if e != nil {
 		return nil, e
 	}
