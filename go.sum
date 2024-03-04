@@ -782,12 +782,8 @@ github.com/apache/arrow/go/v10 v10.0.1/go.mod h1:YvhnlEePVnBS4+0z3fhPfUy7W1Ikj0I
 github.com/apache/arrow/go/v11 v11.0.0/go.mod h1:Eg5OsL5H+e299f7u5ssuXsuHQVEGC4xei5aX110hRiI=
 github.com/apache/arrow/go/v12 v12.0.0/go.mod h1:d+tV/eHZZ7Dz7RPrFKtPK02tpr+c9/PEd/zm8mDS9Vg=
 github.com/apache/thrift v0.16.0/go.mod h1:PHK3hniurgQaNMZYaCLEqXKsYK8upmhPbmdP2FXSqgU=
-github.com/artefactual-sdps/Remove-SIP-Activity v0.0.0-20240221160107-7f4aac024cae h1:TfSWWYg66d/gg3pcYoTSuhtavUgbZ7YcuLh9k1UzYRE=
-github.com/artefactual-sdps/Remove-SIP-Activity v0.0.0-20240221160107-7f4aac024cae/go.mod h1:HBV25AVXOPVrIvhTjWG+ltpvMWinvFS2U/XWNEL1Oq4=
-github.com/artefactual-sdps/remove-files-activity v0.0.0-20240221200716-748524b42861 h1:4oqKablwmvUc8tpmB2MvAXFHiKJlmTkJJ21O4IgUTvU=
-github.com/artefactual-sdps/remove-files-activity v0.0.0-20240221200716-748524b42861/go.mod h1:re4UBdMNrSTNoK+9fX2wUY/7ya7nJuERo/bZaU38J7w=
-github.com/artefactual-sdps/remove-files-activity v0.0.0-20240222195758-862be9127e70 h1:Bmb1bdo+aVlyIDuDPUmePbX8WvN1Fs62u8RHX+WGfRg=
-github.com/artefactual-sdps/remove-files-activity v0.0.0-20240222195758-862be9127e70/go.mod h1:re4UBdMNrSTNoK+9fX2wUY/7ya7nJuERo/bZaU38J7w=
+github.com/artefactual-sdps/remove-files-activity v0.0.0-20240301164716-575fb8b7b834 h1:EJzGpWDLTrx/FbXfwewHqXsGeIihz1CyKTjCdAO67mU=
+github.com/artefactual-sdps/remove-files-activity v0.0.0-20240301164716-575fb8b7b834/go.mod h1:5U5uQ147WRiusG3LMDopp9MOZEcOJ649TUnccLefhKU=
 github.com/aws/aws-sdk-go v1.49.0 h1:g9BkW1fo9GqKfwg2+zCD+TW/D36Ux+vtfJ8guF4AYmY=
 github.com/aws/aws-sdk-go v1.49.0/go.mod h1:LF8svs817+Nz+DmiMQKTO3ubZ/6IaTpq3TjupRn3Eqk=
 github.com/aws/aws-sdk-go-v2 v1.24.0 h1:890+mqQ+hTpNuw0gGP6/4akolQkSToDJgHfQE7AwGuk=
