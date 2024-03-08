@@ -24,10 +24,10 @@ custom_build(
 # Load Kubernetes resources
 k8s_yaml(kustomize("hack/kube/overlays/dev"))
 
-# SFA resources
+# MOMA resources
 k8s_resource(
   "preprocessing-moma-worker",
-  labels=["01-SFA"],
+  labels=["01-MOMA"],
   trigger_mode=trigger_mode
 )
 

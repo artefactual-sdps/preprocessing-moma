@@ -79,7 +79,7 @@ func (w *PreprocessingWorkflow) Execute(ctx temporalsdk_workflow.Context, params
 		return nil, e
 	}
 
-	// Repackage SFA Sip into a Bag.
+	// Repackage MOMA Sip into a Bag.
 	var sipCreation activities.SipCreationResult
 	e = temporalsdk_workflow.ExecuteActivity(withLocalActOpts(ctx), activities.SipCreationName, &activities.SipCreationParams{
 		SipPath: extractPackageRes.Path,

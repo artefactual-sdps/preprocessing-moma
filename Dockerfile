@@ -36,6 +36,5 @@ RUN apk add --update --no-cache python3 && \
 	ln -sf python3 /usr/bin/python && \
 	python3 -m ensurepip
 USER preprocessing-moma
-RUN pip3 install --no-cache --upgrade pip lxml bagit==v1.8.1
 COPY --from=build-preprocessing-moma-worker --link /out/preprocessing-moma-worker /home/preprocessing-moma/bin/preprocessing-moma-worker
 CMD ["/home/preprocessing-moma/bin/preprocessing-moma-worker"]
