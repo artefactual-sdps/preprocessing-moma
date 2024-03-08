@@ -68,8 +68,8 @@ func (m *Main) Run(ctx context.Context) error {
 		temporalsdk_activity.RegisterOptions{Name: activities.ExtractPackageName},
 	)
 	w.RegisterActivityWithOptions(
-		remove.NewRemoveSIPFilesActivity().Execute,
-		temporalsdk_activity.RegisterOptions{Name: remove.RemoveSIPFilesName},
+		remove.NewRemoveFilesActivity().Execute,
+		temporalsdk_activity.RegisterOptions{Name: remove.RemoveFilesName},
 	)
 	w.RegisterActivityWithOptions(
 		activities.NewSipCreationActivity().Execute,
