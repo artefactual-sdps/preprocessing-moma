@@ -66,15 +66,15 @@ func (w *PreprocessingWorkflow) Execute(ctx temporalsdk_workflow.Context, params
 	removePaths = append(removePaths, localPath, extractPackageRes.Path)
 
 	// TODO Make the file path a part of the enduro config or check the configuration later
-	// A succumb file works like a .gitignore file.
-	succumbPath := "./.succumb"
+	// A remove file works like a .gitignore file.
+	removePath := "/home/preprocessing-moma/.config/.remove"
 
 	// Remove hidden files.
-	var ignoredPaths []string
+	var removedPaths activities.RemovePathsResult
 	e = temporalsdk_workflow.ExecuteActivity(withLocalActOpts(ctx), remove.RemoveFilesName, &remove.RemoveFilesParams{
 		RemovePath: extractPackageRes.Path,
-		IgnorePath: succumbPath,
-	}).Get(ctx, &ignoredPaths)
+		IgnorePath: removePath,
+	}).Get(ctx, &removedPaths)
 	if e != nil {
 		return nil, e
 	}
