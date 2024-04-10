@@ -79,21 +79,14 @@ func (w *PreprocessingWorkflow) Execute(ctx temporalsdk_workflow.Context, params
 		return nil, e
 	}
 
-	// Repackage MOMA Sip into a Bag.
-	var sipCreation activities.SipCreationResult
-	e = temporalsdk_workflow.ExecuteActivity(withLocalActOpts(ctx), activities.SipCreationName, &activities.SipCreationParams{
-		SipPath: extractPackageRes.Path,
-	}).Get(ctx, &sipCreation)
+	// TODO: repackage MOMA Sip into a Bag.
+
+	relPath, e := filepath.Rel(w.sharedPath, extractPackageRes.Path)
 	if e != nil {
 		return nil, e
 	}
 
-	realPath, e := filepath.Rel(w.sharedPath, sipCreation.NewSipPath)
-	if e != nil {
-		return nil, e
-	}
-
-	return &PreprocessingWorkflowResult{RelativePath: realPath}, e
+	return &PreprocessingWorkflowResult{RelativePath: relPath}, e
 }
 
 func withLocalActOpts(ctx temporalsdk_workflow.Context) temporalsdk_workflow.Context {
