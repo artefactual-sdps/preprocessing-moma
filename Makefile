@@ -18,6 +18,7 @@ include hack/make/bootstrap.mk
 include hack/make/dep_ent.mk
 include hack/make/dep_goa.mk
 include hack/make/dep_golangci_lint.mk
+include hack/make/dep_golines.mk
 include hack/make/dep_gomajor.mk
 include hack/make/dep_gosec.mk
 include hack/make/dep_gotestsum.mk
@@ -164,6 +165,17 @@ shfmt: $(SHFMT) # @HELP Run shfmt to format shell programs in the hack directory
 		--space-redirects \
 		--func-next-line \
 			$(SHELL_PROGRAMS)
+
+golines: # @HELP Run the golines formatter to fix long lines.
+golines: $(GOLINES)
+	golines \
+		--chain-split-dots \
+		--ignored-dirs="$(TEST_IGNORED_PACKAGES)" \
+		--max-len=120 \
+		--reformat-tags \
+		--shorten-comments \
+		--write-output \
+		.
 
 gosec: # @HELP Run gosec security scanner.
 gosec: $(GOSEC)
