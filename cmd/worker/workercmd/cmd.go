@@ -64,10 +64,6 @@ func (m *Main) Run(ctx context.Context) error {
 	)
 
 	w.RegisterActivityWithOptions(
-		activities.NewExtractPackage().Execute,
-		temporalsdk_activity.RegisterOptions{Name: activities.ExtractPackageName},
-	)
-	w.RegisterActivityWithOptions(
 		remove.NewRemoveFilesActivity().Execute,
 		temporalsdk_activity.RegisterOptions{Name: remove.RemoveFilesName},
 	)
