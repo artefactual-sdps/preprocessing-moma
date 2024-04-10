@@ -71,10 +71,6 @@ func (m *Main) Run(ctx context.Context) error {
 		remove.NewRemoveFilesActivity().Execute,
 		temporalsdk_activity.RegisterOptions{Name: remove.RemoveFilesName},
 	)
-	w.RegisterActivityWithOptions(
-		activities.NewSipCreationActivity().Execute,
-		temporalsdk_activity.RegisterOptions{Name: activities.SipCreationName},
-	)
 	if err := w.Start(); err != nil {
 		m.logger.Error(err, "Worker failed to start or fatal error during its execution.")
 		return err
