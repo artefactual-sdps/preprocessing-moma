@@ -30,7 +30,10 @@ func NewPreprocessingWorkflow(sharedPath string) *PreprocessingWorkflow {
 	}
 }
 
-func (w *PreprocessingWorkflow) Execute(ctx temporalsdk_workflow.Context, params *PreprocessingWorkflowParams) (r *PreprocessingWorkflowResult, e error) {
+func (w *PreprocessingWorkflow) Execute(
+	ctx temporalsdk_workflow.Context,
+	params *PreprocessingWorkflowParams,
+) (r *PreprocessingWorkflowResult, e error) {
 	logger := temporalsdk_workflow.GetLogger(ctx)
 	logger.Debug("PreprocessingWorkflow workflow running!", "params", params)
 
@@ -41,7 +44,7 @@ func (w *PreprocessingWorkflow) Execute(ctx temporalsdk_workflow.Context, params
 
 	localPath := filepath.Join(w.sharedPath, filepath.Clean(params.RelativePath))
 
-	// TODO Make the file path a part of the enduro config or check the configuration later
+	// TODO Make the file path a part of the enduro config or check the configuration later.
 	// A remove file works like a .gitignore file.
 	removePath := "/home/preprocessing-moma/.config/.remove"
 
