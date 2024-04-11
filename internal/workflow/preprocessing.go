@@ -1,7 +1,6 @@
 package workflow
 
 import (
-	"errors"
 	"fmt"
 	"path/filepath"
 	"time"
@@ -40,19 +39,7 @@ func (w *PreprocessingWorkflow) Execute(ctx temporalsdk_workflow.Context, params
 		return nil, e
 	}
 
-	var removePaths []string
-	defer func() {
-		var result activities.RemovePathsResult
-		err := temporalsdk_workflow.ExecuteActivity(withLocalActOpts(ctx), activities.RemovePathsName, &activities.RemovePathsParams{
-			Paths: removePaths,
-		}).Get(ctx, &result)
-		e = errors.Join(e, err)
-
-		logger.Debug("PreprocessingWorkflow workflow finished!", "result", r, "error", e)
-	}()
-
 	localPath := filepath.Join(w.sharedPath, filepath.Clean(params.RelativePath))
-	removePaths = append(removePaths, localPath)
 
 	// TODO Make the file path a part of the enduro config or check the configuration later
 	// A remove file works like a .gitignore file.
@@ -68,14 +55,9 @@ func (w *PreprocessingWorkflow) Execute(ctx temporalsdk_workflow.Context, params
 		return nil, e
 	}
 
-	// TODO: repackage MOMA Sip into a Bag.
+	// TODO: repackage MOMA SIP into a Bag.
 
-	relPath, e := filepath.Rel(w.sharedPath, localPath)
-	if e != nil {
-		return nil, e
-	}
-
-	return &PreprocessingWorkflowResult{RelativePath: relPath}, e
+	return &PreprocessingWorkflowResult{RelativePath: params.RelativePath}, e
 }
 
 func withLocalActOpts(ctx temporalsdk_workflow.Context) temporalsdk_workflow.Context {
