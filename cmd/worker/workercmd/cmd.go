@@ -11,7 +11,6 @@ import (
 	"go.temporal.io/sdk/worker"
 	temporalsdk_workflow "go.temporal.io/sdk/workflow"
 
-	"github.com/artefactual-sdps/preprocessing-moma/internal/activities"
 	"github.com/artefactual-sdps/preprocessing-moma/internal/config"
 	"github.com/artefactual-sdps/preprocessing-moma/internal/workflow"
 	remove "github.com/artefactual-sdps/remove-files-activity"
@@ -59,14 +58,10 @@ func (m *Main) Run(ctx context.Context) error {
 		temporalsdk_workflow.RegisterOptions{Name: m.cfg.Temporal.WorkflowName},
 	)
 	w.RegisterActivityWithOptions(
-		activities.NewRemovePaths().Execute,
-		temporalsdk_activity.RegisterOptions{Name: activities.RemovePathsName},
-	)
-
-	w.RegisterActivityWithOptions(
 		remove.NewRemoveFilesActivity().Execute,
 		temporalsdk_activity.RegisterOptions{Name: remove.RemoveFilesName},
 	)
+
 	if err := w.Start(); err != nil {
 		m.logger.Error(err, "Worker failed to start or fatal error during its execution.")
 		return err
