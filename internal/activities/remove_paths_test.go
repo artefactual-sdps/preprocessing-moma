@@ -79,10 +79,10 @@ func TestRemovePaths(t *testing.T) {
 
 				return
 			}
-
 			assert.NilError(t, err)
+
 			var res activities.RemovePathsResult
-			future.Get(&res)
+			_ = future.Get(&res)
 			assert.DeepEqual(t, res, tt.want)
 
 			for _, path := range paths {
