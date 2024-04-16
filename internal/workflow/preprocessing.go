@@ -5,8 +5,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/artefactual-sdps/preprocessing-moma/internal/activities"
-	remove "github.com/artefactual-sdps/remove-files-activity"
+	"github.com/artefactual-sdps/temporal-activities/removefiles"
 	"go.artefactual.dev/tools/temporal"
 	temporalsdk_temporal "go.temporal.io/sdk/temporal"
 	temporalsdk_workflow "go.temporal.io/sdk/workflow"
@@ -44,16 +43,13 @@ func (w *PreprocessingWorkflow) Execute(
 
 	localPath := filepath.Join(w.sharedPath, filepath.Clean(params.RelativePath))
 
-	// TODO Make the file path a part of the enduro config or check the configuration later.
-	// A remove file works like a .gitignore file.
-	removePath := "/home/preprocessing-moma/.config/.remove"
-
-	// Remove hidden files.
-	var removedPaths activities.RemovePathsResult
-	e = temporalsdk_workflow.ExecuteActivity(withLocalActOpts(ctx), remove.RemoveFilesName, &remove.RemoveFilesParams{
-		RemovePath: localPath,
-		IgnorePath: removePath,
-	}).Get(ctx, &removedPaths)
+	// Remove unwanted files.
+	var removeFilesResult removefiles.ActivityResult
+	e = temporalsdk_workflow.ExecuteActivity(
+		withLocalActOpts(ctx),
+		removefiles.ActivityName,
+		&removefiles.ActivityParams{Path: localPath},
+	).Get(ctx, &removeFilesResult)
 	if e != nil {
 		return nil, e
 	}

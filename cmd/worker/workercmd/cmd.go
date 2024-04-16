@@ -13,7 +13,7 @@ import (
 
 	"github.com/artefactual-sdps/preprocessing-moma/internal/config"
 	"github.com/artefactual-sdps/preprocessing-moma/internal/workflow"
-	remove "github.com/artefactual-sdps/remove-files-activity"
+	"github.com/artefactual-sdps/temporal-activities/removefiles"
 )
 
 const Name = "preprocessing-worker"
@@ -58,8 +58,8 @@ func (m *Main) Run(ctx context.Context) error {
 		temporalsdk_workflow.RegisterOptions{Name: m.cfg.Temporal.WorkflowName},
 	)
 	w.RegisterActivityWithOptions(
-		remove.NewRemoveFilesActivity().Execute,
-		temporalsdk_activity.RegisterOptions{Name: remove.RemoveFilesName},
+		removefiles.NewActivity(m.cfg.RemoveFiles).Execute,
+		temporalsdk_activity.RegisterOptions{Name: removefiles.ActivityName},
 	)
 
 	if err := w.Start(); err != nil {

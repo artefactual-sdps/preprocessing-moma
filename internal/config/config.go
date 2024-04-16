@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/artefactual-sdps/temporal-activities/removefiles"
 	"github.com/spf13/viper"
 )
 
@@ -12,11 +13,13 @@ type ConfigurationValidator interface {
 }
 
 type Configuration struct {
-	Verbosity  int
 	Debug      bool
+	Verbosity  int
 	SharedPath string
 	Temporal   Temporal
 	Worker     WorkerConfig
+
+	RemoveFiles removefiles.Config
 }
 
 type Temporal struct {
