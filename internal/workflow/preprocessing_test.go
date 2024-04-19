@@ -4,24 +4,24 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/artefactual-sdps/preprocessing-moma/internal/config"
-	"github.com/artefactual-sdps/preprocessing-moma/internal/workflow"
 	remove "github.com/artefactual-sdps/remove-files-activity"
-
 	"github.com/artefactual-sdps/temporal-activities/removefiles"
 	cp "github.com/otiai10/copy"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 	temporalsdk_activity "go.temporal.io/sdk/activity"
-	"go.temporal.io/sdk/testsuite"
+	temporalsdk_testsuite "go.temporal.io/sdk/testsuite"
 	temporalsdk_worker "go.temporal.io/sdk/worker"
+
+	"github.com/artefactual-sdps/preprocessing-moma/internal/config"
+	"github.com/artefactual-sdps/preprocessing-moma/internal/workflow"
 )
 
 type PreprocessingTestSuite struct {
 	suite.Suite
-	testsuite.WorkflowTestSuite
+	temporalsdk_testsuite.WorkflowTestSuite
 
-	env *testsuite.TestWorkflowEnvironment
+	env *temporalsdk_testsuite.TestWorkflowEnvironment
 
 	// Each test creates its own temporary transfer directory.
 	testDir string
