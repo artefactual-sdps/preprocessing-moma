@@ -1,2 +1,3 @@
 # preprocessing-moma
-preprocessing for the museum of modern arts
+
+**preprocessing-moma** is an Enduro preprocessing workflow for MoMA SIPs.
