@@ -94,7 +94,7 @@ list-ignored-packages:
 
 pre-commit: # @HELP Check that code is ready to commit.
 pre-commit:
-	$(MAKE) -j \
+	ENDURO_PP_INTEGRATION_TEST=1 $(MAKE) -j \
 	golines \
 	gosec \
 	lint \
@@ -124,7 +124,7 @@ test: $(GOTESTSUM)
 
 test-ci: # @HELP Run all tests in CI with coverage and the race detector.
 test-ci:
-	$(MAKE) test GOTEST_FLAGS="-race -coverprofile=covreport -covermode=atomic"
+	ENDURO_PP_INTEGRATION_TEST=1 $(MAKE) test GOTEST_FLAGS="-race -coverprofile=covreport -covermode=atomic"
 
 test-race: # @HELP Run all tests with the race detector.
 test-race:
