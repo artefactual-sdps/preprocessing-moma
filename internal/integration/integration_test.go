@@ -2,7 +2,10 @@ package integration_test
 
 import (
 	"context"
+	"os"
 	"path/filepath"
+	"slices"
+	"strings"
 	"testing"
 	"time"
 
@@ -135,6 +138,15 @@ func (env *testEnv) copyTestTransfer(name string) {
 }
 
 func TestIntegration(t *testing.T) {
+	truthy := []string{"1", "t", "true"}
+	v := strings.ToLower(os.Getenv("ENDURO_PP_INTEGRATION_TEST"))
+	if !slices.Contains(truthy, v) {
+		t.Skipf(
+			"Set ENDURO_PP_INTEGRATION_TEST={%s} to run this test.",
+			strings.Join(truthy, ","),
+		)
+	}
+
 	ctx := context.Background()
 	temporalServer := setUpTemporal(ctx, t)
 
