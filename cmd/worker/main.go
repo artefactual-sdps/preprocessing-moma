@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"os"
 	"os/signal"
@@ -19,11 +18,12 @@ import (
 func main() {
 	p := pflag.NewFlagSet(workercmd.Name, pflag.ExitOnError)
 	p.String("config", "", "Configuration file")
-	if err := p.Parse(os.Args[1:]); err == flag.ErrHelp {
-		os.Exit(1)
-	} else if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+	p.Bool("version", false, "Show version information")
+	_ = p.Parse(os.Args[1:])
+
+	if v, _ := p.GetBool("version"); v {
+		fmt.Println(version.Info(workercmd.Name))
+		os.Exit(0)
 	}
 
 	var cfg config.Configuration
