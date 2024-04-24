@@ -1,11 +1,9 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
 	"os"
-	"os/signal"
 	"runtime"
 
 	"github.com/spf13/pflag"
@@ -57,23 +55,10 @@ func main() {
 		logger.Info("Configuration file not found.")
 	}
 
-	ctx, cancel := context.WithCancel(context.Background())
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	go func() { <-c; cancel() }()
-
 	m := workercmd.NewMain(logger, cfg)
 
-	if err := m.Run(ctx); err != nil {
-		_ = m.Close()
-		os.Exit(1)
-	}
-
-	<-ctx.Done()
-
-	if err := m.Close(); err != nil {
+	if err := m.Run(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
-		logger.Error(err, "Failed to close the application.")
 		os.Exit(1)
 	}
 }
