@@ -98,7 +98,7 @@ func newTestEnv(t *testing.T, cfg config.Configuration) *testEnv {
 func (env *testEnv) createTestDir() {
 	env.t.Helper()
 
-	env.testDir = tfs.NewDir(env.t, "preprocessing-moma-test")
+	env.testDir = tfs.NewDir(env.t, "preprocessing-test")
 	env.cfg.SharedPath = env.testDir.Path()
 }
 

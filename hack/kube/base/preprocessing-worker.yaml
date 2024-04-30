@@ -1,31 +1,31 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: preprocessing-moma-worker
+  name: preprocessing-worker
   labels:
-    app: preprocessing-moma-worker
+    app: preprocessing-worker
 spec:
-  serviceName: preprocessing-moma-worker
+  serviceName: preprocessing-worker
   selector:
     matchLabels:
-      app: preprocessing-moma-worker
+      app: preprocessing-worker
   template:
     metadata:
       labels:
-        app: preprocessing-moma-worker
+        app: preprocessing-worker
     spec:
       serviceAccountName: sdps
       securityContext:
         fsGroup: 1000
       containers:
-        - name: preprocessing-moma-worker
+        - name: preprocessing-worker
           image: preprocessing-moma-worker:dev
           volumeMounts:
             - name: config
-              mountPath: /home/preprocessing-moma/.config
+              mountPath: /home/preprocessing/.config
               readOnly: true
           resources: {}
       volumes:
         - name: config
           secret:
-            secretName: preprocessing-moma-secret
+            secretName: preprocessing-secret

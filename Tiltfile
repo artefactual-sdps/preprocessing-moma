@@ -24,10 +24,10 @@ custom_build(
 # Load Kubernetes resources
 k8s_yaml(kustomize("hack/kube/overlays/dev"))
 
-# MOMA resources
+# Preprocessing resources
 k8s_resource(
-  "preprocessing-moma-worker",
-  labels=["01-MOMA"],
+  "preprocessing-worker",
+  labels=["01-Preprocessing"],
   trigger_mode=trigger_mode
 )
 
@@ -57,7 +57,7 @@ cmd_button(
     "sh",
     "-c",
     'FILENAME=$(basename -- "$LOCAL_PATH"); \
-    kubectl -n enduro-sdps cp "$LOCAL_PATH" preprocessing-moma-worker-0:/tmp/"$FILENAME"; \
+    kubectl -n enduro-sdps cp "$LOCAL_PATH" preprocessing-worker-0:/tmp/"$FILENAME"; \
     kubectl -n enduro-sdps delete secret start-workflow-secret --ignore-not-found; \
     kubectl -n enduro-sdps create secret generic start-workflow-secret --from-literal=relative_path="$FILENAME"; \
     tilt trigger start-workflow;',
@@ -75,7 +75,7 @@ cmd_button(
     "tilt trigger mysql-recreate-databases; \
     sleep 5; \
     tilt trigger temporal; \
-    tilt trigger preprocessing-moma-worker;",
+    tilt trigger preprocessing-worker;",
   ],
   location="nav",
   icon_name="delete",

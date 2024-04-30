@@ -28,11 +28,11 @@ func TestConfig(t *testing.T) {
 	tmpDir := fs.NewDir(
 		t, "",
 		fs.WithFile(
-			"preprocessing_moma.toml",
+			"preprocessing.toml",
 			testConfig,
 		),
 	)
-	configFile := tmpDir.Join("preprocessing_moma.toml")
+	configFile := tmpDir.Join("preprocessing.toml")
 
 	var c config.Configuration
 	found, configFileUsed, err := config.Read(&c, configFile)
