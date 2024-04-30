@@ -28,6 +28,7 @@ ARG GROUP_ID=1000
 RUN addgroup -g ${GROUP_ID} -S preprocessing
 RUN adduser -u ${USER_ID} -S -D preprocessing preprocessing
 USER preprocessing
+RUN mkdir /home/preprocessing/shared
 
 FROM base AS preprocessing-worker
 COPY --from=build-preprocessing-worker --link /out/preprocessing-worker /home/preprocessing/bin/preprocessing-worker

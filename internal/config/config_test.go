@@ -12,7 +12,7 @@ import (
 const testConfig = `# Config
 debug = true
 verbosity = 2
-sharedPath = "/tmp"
+sharedPath = "/home/preprocessing/shared"
 [temporal]
 address = "host:port"
 namespace = "default"
@@ -43,7 +43,7 @@ func TestConfig(t *testing.T) {
 
 	assert.Equal(t, c.Debug, true)
 	assert.Equal(t, c.Verbosity, 2)
-	assert.Equal(t, c.SharedPath, "/tmp")
+	assert.Equal(t, c.SharedPath, "/home/preprocessing/shared")
 
 	assert.Equal(t, c.Temporal.Address, "host:port")
 	assert.Equal(t, c.Temporal.Namespace, "default")
