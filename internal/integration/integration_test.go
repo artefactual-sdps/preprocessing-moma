@@ -33,7 +33,7 @@ func setUpTemporal(ctx context.Context, t *testing.T) *temporalInstance {
 
 	// Fallback to development server provided by the Temporal GO SDK.
 	s, err := temporalsdk_testsuite.StartDevServer(ctx, temporalsdk_testsuite.DevServerOptions{
-		LogLevel: "fatal",
+		LogLevel: "error",
 	})
 
 	assert.NilError(t, err, "Failed to start Temporal development server.")
