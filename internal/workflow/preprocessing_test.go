@@ -6,7 +6,6 @@ import (
 
 	remove "github.com/artefactual-sdps/remove-files-activity"
 	"github.com/artefactual-sdps/temporal-activities/removefiles"
-	cp "github.com/otiai10/copy"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 	temporalsdk_activity "go.temporal.io/sdk/activity"
@@ -17,34 +16,19 @@ import (
 	"github.com/artefactual-sdps/preprocessing-moma/internal/workflow"
 )
 
+const sharedPath = "/shared/path/"
+
 type PreprocessingTestSuite struct {
 	suite.Suite
 	temporalsdk_testsuite.WorkflowTestSuite
 
-	env *temporalsdk_testsuite.TestWorkflowEnvironment
-
-	// Each test creates its own temporary transfer directory.
-	testDir string
-
-	// Each test registers the workflow with a different name to avoid
-	// duplicates.
+	env      *temporalsdk_testsuite.TestWorkflowEnvironment
 	workflow *workflow.PreprocessingWorkflow
 }
 
-func (s *PreprocessingTestSuite) copyTestTransfer(src, relPath string) {
-	err := cp.Copy(src, filepath.Join(s.testDir, relPath))
-	if err != nil {
-		s.T().Fatalf("copyTestTransfer: %v", err)
-	}
-}
-
-func (s *PreprocessingTestSuite) SetupTest(
-	cfg config.Configuration,
-	transferPath, relPath string,
-) {
+func (s *PreprocessingTestSuite) SetupTest(cfg config.Configuration) {
 	s.env = s.NewTestWorkflowEnvironment()
 	s.env.SetWorkerOptions(temporalsdk_worker.Options{EnableSessionWorker: true})
-	s.testDir = s.T().TempDir()
 
 	// Register activities.
 	s.env.RegisterActivityWithOptions(
@@ -52,10 +36,7 @@ func (s *PreprocessingTestSuite) SetupTest(
 		temporalsdk_activity.RegisterOptions{Name: remove.RemoveFilesName},
 	)
 
-	s.workflow = workflow.NewPreprocessingWorkflow(s.testDir)
-
-	// Copy test files to testDir.
-	s.copyTestTransfer(transferPath, relPath)
+	s.workflow = workflow.NewPreprocessingWorkflow(sharedPath)
 }
 
 func (s *PreprocessingTestSuite) AfterTest(suiteName, testName string) {
@@ -68,22 +49,16 @@ func TestPreprocessingWorkflow(t *testing.T) {
 
 func (s *PreprocessingTestSuite) TestExecute() {
 	relPath := "transfer"
-	cfg := config.Configuration{
+	s.SetupTest(config.Configuration{
 		RemoveFiles: removefiles.Config{RemoveNames: ".DS_Store"},
-	}
-
-	s.SetupTest(
-		cfg,
-		filepath.Join("testdata", "transfer_with_ds_store"),
-		relPath,
-	)
+	})
 
 	// Mock activities.
 	sessionCtx := mock.AnythingOfType("*context.timerCtx")
 	s.env.OnActivity(
 		removefiles.ActivityName,
 		sessionCtx,
-		&removefiles.ActivityParams{Path: filepath.Join(s.testDir, relPath)},
+		&removefiles.ActivityParams{Path: filepath.Join(sharedPath, relPath)},
 	).Return(
 		&removefiles.ActivityResult{Count: 1}, nil,
 	)
