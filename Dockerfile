@@ -30,11 +30,5 @@ RUN adduser -u ${USER_ID} -S -D preprocessing-moma preprocessing-moma
 USER preprocessing-moma
 
 FROM base AS preprocessing-moma-worker
-ENV PYTHONUNBUFFERED=1
-USER root
-RUN apk add --update --no-cache python3 && \
-	ln -sf python3 /usr/bin/python && \
-	python3 -m ensurepip
-USER preprocessing-moma
 COPY --from=build-preprocessing-moma-worker --link /out/preprocessing-moma-worker /home/preprocessing-moma/bin/preprocessing-moma-worker
 CMD ["/home/preprocessing-moma/bin/preprocessing-moma-worker"]
