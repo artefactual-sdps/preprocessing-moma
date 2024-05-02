@@ -2,6 +2,7 @@ package integration_test
 
 import (
 	"context"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"slices"
@@ -21,6 +22,11 @@ import (
 	"github.com/artefactual-sdps/preprocessing-moma/cmd/worker/workercmd"
 	"github.com/artefactual-sdps/preprocessing-moma/internal/config"
 	"github.com/artefactual-sdps/preprocessing-moma/internal/workflow"
+)
+
+const (
+	dirMode  fs.FileMode = 0o700
+	fileMode fs.FileMode = 0o600
 )
 
 type temporalInstance struct {
@@ -135,6 +141,24 @@ func (env *testEnv) copyTestTransfer(name string) {
 	if err := cp.Copy(src, dest); err != nil {
 		env.t.Fatalf("Error copying %s to %s", src, dest)
 	}
+
+	// Explicitly set file modes.
+	filepath.WalkDir(dest, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+
+		mode := fileMode
+		if d.IsDir() {
+			mode = dirMode
+		}
+
+		if err := os.Chmod(path, mode); err != nil {
+			return err
+		}
+
+		return nil
+	})
 }
 
 func TestIntegration(t *testing.T) {
@@ -180,9 +204,9 @@ func TestIntegration(t *testing.T) {
 		assert.Assert(t, tfs.Equal(
 			env.testDir.Path(),
 			tfs.Expected(t,
-				tfs.WithDir(testTransfer, tfs.WithMode(0o755),
+				tfs.WithDir(testTransfer, tfs.WithMode(dirMode),
 					tfs.WithFile(
-						"small.txt", "I am a small file.\n", tfs.WithMode(0o644),
+						"small.txt", "I am a small file.\n", tfs.WithMode(fileMode),
 					),
 				),
 			),
