@@ -58,7 +58,7 @@ func (m *Main) Run(ctx context.Context) error {
 		temporalsdk_workflow.RegisterOptions{Name: m.cfg.Temporal.WorkflowName},
 	)
 	w.RegisterActivityWithOptions(
-		removefiles.NewActivity(m.cfg.RemoveFiles).Execute,
+		removefiles.NewActivity().Execute,
 		temporalsdk_activity.RegisterOptions{Name: removefiles.ActivityName},
 	)
 

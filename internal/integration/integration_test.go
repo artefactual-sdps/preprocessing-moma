@@ -10,7 +10,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/artefactual-sdps/temporal-activities/removefiles"
 	"github.com/go-logr/logr"
 	"github.com/go-logr/logr/testr"
 	cp "github.com/otiai10/copy"
@@ -69,9 +68,6 @@ func defaultConfig() config.Configuration {
 			Namespace:    "default",
 			TaskQueue:    "preprocessing",
 			WorkflowName: "preprocessing",
-		},
-		RemoveFiles: removefiles.Config{
-			RemoveNames: ".DS_Store",
 		},
 	}
 }

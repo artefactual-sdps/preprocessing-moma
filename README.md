@@ -1,7 +1,7 @@
 # preprocessing-moma
 
 **preprocessing-moma** is an Enduro preprocessing workflow for MoMA SIPs.
-It removes unwanted files/directories from the SIP based on configuration.
+It removes unwanted ".DS_Store" files from the SIP.
 
 - [Configuration](#configuration)
 - [Local environment](#local-environment)
@@ -30,9 +30,6 @@ workflowName = "preprocessing"
 
 [worker]
 maxConcurrentSessions = 1
-
-[removeFiles]
-removeNames = ".DS_Store"
 ```
 
 ### Enduro

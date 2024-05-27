@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/artefactual-sdps/temporal-activities/removefiles"
 	"github.com/spf13/viper"
 )
 
@@ -18,8 +17,6 @@ type Configuration struct {
 	SharedPath string
 	Temporal   Temporal
 	Worker     WorkerConfig
-
-	RemoveFiles removefiles.Config
 }
 
 type Temporal struct {

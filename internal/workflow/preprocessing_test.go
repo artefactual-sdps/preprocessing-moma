@@ -32,7 +32,7 @@ func (s *PreprocessingTestSuite) SetupTest(cfg config.Configuration) {
 
 	// Register activities.
 	s.env.RegisterActivityWithOptions(
-		removefiles.NewActivity(cfg.RemoveFiles).Execute,
+		removefiles.NewActivity().Execute,
 		temporalsdk_activity.RegisterOptions{Name: remove.RemoveFilesName},
 	)
 
@@ -49,16 +49,17 @@ func TestPreprocessingWorkflow(t *testing.T) {
 
 func (s *PreprocessingTestSuite) TestExecute() {
 	relPath := "transfer"
-	s.SetupTest(config.Configuration{
-		RemoveFiles: removefiles.Config{RemoveNames: ".DS_Store"},
-	})
+	s.SetupTest(config.Configuration{})
 
 	// Mock activities.
 	sessionCtx := mock.AnythingOfType("*context.timerCtx")
 	s.env.OnActivity(
 		removefiles.ActivityName,
 		sessionCtx,
-		&removefiles.ActivityParams{Path: filepath.Join(sharedPath, relPath)},
+		&removefiles.ActivityParams{
+			Path:        filepath.Join(sharedPath, relPath),
+			RemoveNames: []string{".DS_Store"},
+		},
 	).Return(
 		&removefiles.ActivityResult{Count: 1}, nil,
 	)

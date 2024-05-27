@@ -48,7 +48,10 @@ func (w *PreprocessingWorkflow) Execute(
 	e = temporalsdk_workflow.ExecuteActivity(
 		withLocalActOpts(ctx),
 		removefiles.ActivityName,
-		&removefiles.ActivityParams{Path: localPath},
+		&removefiles.ActivityParams{
+			Path:        localPath,
+			RemoveNames: []string{".DS_Store"},
+		},
 	).Get(ctx, &removeFilesResult)
 	if e != nil {
 		return nil, e

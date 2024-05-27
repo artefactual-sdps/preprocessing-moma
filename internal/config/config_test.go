@@ -20,8 +20,6 @@ taskQueue = "preprocessing"
 workflowName = "preprocessing"
 [worker]
 maxConcurrentSessions = 1
-[removeFiles]
-removeNames = ".DS_Store, Thumbs.db"
 `
 
 func TestConfig(t *testing.T) {
@@ -51,6 +49,4 @@ func TestConfig(t *testing.T) {
 	assert.Equal(t, c.Temporal.WorkflowName, "preprocessing")
 
 	assert.Equal(t, c.Worker.MaxConcurrentSessions, 1)
-
-	assert.Equal(t, c.RemoveFiles.RemoveNames, ".DS_Store, Thumbs.db")
 }
