@@ -1,6 +1,6 @@
 module github.com/artefactual-sdps/preprocessing-moma
 
-go 1.22.3
+go 1.22.4
 
 require (
 	github.com/artefactual-sdps/remove-files-activity v0.0.0-20240301164716-575fb8b7b834
